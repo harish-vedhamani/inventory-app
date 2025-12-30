@@ -1,0 +1,14 @@
+/Users/harish/projects/dotnet/playground/bin/Debug/net8.0/playground
+/Users/harish/projects/dotnet/playground/bin/Debug/net8.0/playground.deps.json
+/Users/harish/projects/dotnet/playground/bin/Debug/net8.0/playground.runtimeconfig.json
+/Users/harish/projects/dotnet/playground/bin/Debug/net8.0/playground.dll
+/Users/harish/projects/dotnet/playground/bin/Debug/net8.0/playground.pdb
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/playground.GeneratedMSBuildEditorConfig.editorconfig
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/playground.AssemblyInfoInputs.cache
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/playground.AssemblyInfo.cs
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/playground.csproj.CoreCompileInputs.cache
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/playground.dll
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/refint/playground.dll
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/playground.pdb
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/playground.genruntimeconfig.cache
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/ref/playground.dll
