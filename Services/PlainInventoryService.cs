@@ -38,6 +38,13 @@ namespace Playground.Services
             return Task.FromResult<IEnumerable<Product>>(results);
         }
 
+        public Task<Product> GetProductByIdAsync(Guid id)
+        {
+            var product = _products.FirstOrDefault(p => p.Id == id);
+            if (product is null) throw new Exceptions.ProductNotFoundException(id);
+            return Task.FromResult(product);
+        }
+
         public Task UpdatePriceAsync(Guid id, decimal newPrice)
         {
             if (newPrice < 0) throw new ArgumentOutOfRangeException(nameof(newPrice), "Price cannot be negative");

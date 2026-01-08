@@ -9,6 +9,7 @@ namespace Playground.Services
     {
       Task AddProductAsync(Product product);
       Task<IEnumerable<Product>> ListProductsAsync();
+      Task<Product> GetProductByIdAsync(Guid id);
       Task<IEnumerable<Product>> SearchProductsAsync(string query);
       Task UpdatePriceAsync(Guid id, decimal newPrice);
       Task UpdateQuantityAsync(Guid id, int newQuantity);

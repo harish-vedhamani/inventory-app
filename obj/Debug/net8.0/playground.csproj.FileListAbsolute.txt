@@ -12,3 +12,13 @@
 /Users/harish/projects/dotnet/playground/obj/Debug/net8.0/playground.pdb
 /Users/harish/projects/dotnet/playground/obj/Debug/net8.0/playground.genruntimeconfig.cache
 /Users/harish/projects/dotnet/playground/obj/Debug/net8.0/ref/playground.dll
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/playground.sourcelink.json
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/playground.MvcApplicationPartsAssemblyInfo.cache
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/staticwebassets.build.json
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/staticwebassets.development.json
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/staticwebassets/msbuild.playground.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/staticwebassets/msbuild.build.playground.props
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.playground.props
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.playground.props
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/staticwebassets.pack.json
+/Users/harish/projects/dotnet/playground/obj/Debug/net8.0/scopedcss/bundle/playground.styles.css
