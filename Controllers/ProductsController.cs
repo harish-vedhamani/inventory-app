@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Playground.Services;
+using Microsoft.AspNetCore.Authorization;
 using Playground.DTOs;
 using Playground.Domain;
 
@@ -10,6 +11,8 @@ namespace Playground.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
+    
     public class ProductsController : ControllerBase
     {
         private readonly IInventoryService _inventory;
@@ -23,6 +26,14 @@ namespace Playground.Controllers
         public async Task<IActionResult> GetAll()
         {
             var items = await _inventory.ListProductsAsync();
+            var dto = items.Select(p => new ProductResponseDto { Id = p.Id, Name = p.Name, Price = p.Price, Quantity = p.Quantity });
+            return Ok(dto);
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> Search([FromQuery] string? q)
+        {
+            var items = await _inventory.SearchProductsAsync(q ?? string.Empty);
             var dto = items.Select(p => new ProductResponseDto { Id = p.Id, Name = p.Name, Price = p.Price, Quantity = p.Quantity });
             return Ok(dto);
         }
@@ -43,6 +54,7 @@ namespace Playground.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] ProductCreateDto create)
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
@@ -62,6 +74,7 @@ namespace Playground.Controllers
         }
 
         [HttpPut("{id:guid}/price")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdatePrice(Guid id, [FromBody] UpdatePriceDto body)
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
@@ -77,6 +90,7 @@ namespace Playground.Controllers
         }
 
         [HttpPut("{id:guid}/quantity")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateQuantity(Guid id, [FromBody] UpdateQuantityDto body)
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
@@ -92,6 +106,7 @@ namespace Playground.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try
