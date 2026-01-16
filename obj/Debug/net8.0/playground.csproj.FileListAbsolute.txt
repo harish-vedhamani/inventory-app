@@ -133,3 +133,4 @@
 /Users/harish/projects/dotnet/playground/obj/Debug/net8.0/playground.csproj.Up2Date
 /Users/harish/projects/dotnet/playground/bin/Debug/net8.0/MySqlConnector.dll
 /Users/harish/projects/dotnet/playground/bin/Debug/net8.0/Pomelo.EntityFrameworkCore.MySql.dll
+/Users/harish/projects/dotnet/playground/bin/Debug/net8.0/appsettings.Development.json

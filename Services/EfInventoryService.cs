@@ -95,5 +95,45 @@ namespace Playground.Services
             var e = await _db.Products.OrderByDescending(p => p.Price).FirstOrDefaultAsync();
             return e is null ? null : ToDomain(e);
         }
+
+        public async Task<(IEnumerable<Product> Items, int TotalCount)> QueryProductsAsync(
+            int page,
+            int pageSize,
+            decimal? minPrice,
+            decimal? maxPrice,
+            bool? lowStock,
+            string? sortBy,
+            bool desc,
+            string? q)
+        {
+            if (page < 1) page = 1;
+            if (pageSize < 1) pageSize = 10;
+
+            var query = _db.Products.AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                var tq = q.Trim();
+                query = query.Where(p => EF.Functions.Like(p.Name, $"%{tq}%"));
+            }
+
+            if (minPrice.HasValue) query = query.Where(p => p.Price >= minPrice.Value);
+            if (maxPrice.HasValue) query = query.Where(p => p.Price <= maxPrice.Value);
+            if (lowStock.HasValue && lowStock.Value) query = query.Where(p => p.Quantity <= 5);
+
+            var total = await query.CountAsync();
+
+            // Sorting
+            query = (sortBy ?? "name").ToLower() switch
+            {
+                "price" => desc ? query.OrderByDescending(p => p.Price) : query.OrderBy(p => p.Price),
+                _ => desc ? query.OrderByDescending(p => p.Name) : query.OrderBy(p => p.Name),
+            };
+
+            var skip = (page - 1) * pageSize;
+            var pageItems = await query.Skip(skip).Take(pageSize).ToListAsync();
+
+            return (pageItems.Select(ToDomain), total);
+        }
     }
 }

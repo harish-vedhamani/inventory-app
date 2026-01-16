@@ -86,5 +86,43 @@ namespace Playground.Services
             if (_products.Any()) result = _products.OrderByDescending(p => p.Price).First();
             return Task.FromResult(result);
         }
+
+        public Task<(IEnumerable<Product> Items, int TotalCount)> QueryProductsAsync(
+            int page,
+            int pageSize,
+            decimal? minPrice,
+            decimal? maxPrice,
+            bool? lowStock,
+            string? sortBy,
+            bool desc,
+            string? q)
+        {
+            if (page < 1) page = 1;
+            if (pageSize < 1) pageSize = 10;
+
+            var query = _products.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                var tq = q.Trim();
+                query = query.Where(p => p.Name.Contains(tq, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (minPrice.HasValue) query = query.Where(p => p.Price >= minPrice.Value);
+            if (maxPrice.HasValue) query = query.Where(p => p.Price <= maxPrice.Value);
+            if (lowStock.HasValue && lowStock.Value) query = query.Where(p => p.Quantity <= 5);
+
+            var total = query.Count();
+
+            query = (sortBy ?? "name").ToLower() switch
+            {
+                "price" => desc ? query.OrderByDescending(p => p.Price) : query.OrderBy(p => p.Price),
+                _ => desc ? query.OrderByDescending(p => p.Name) : query.OrderBy(p => p.Name),
+            };
+
+            var skip = (page - 1) * pageSize;
+            var items = query.Skip(skip).Take(pageSize).ToList();
+            return Task.FromResult<(IEnumerable<Product>, int)>((items, total));
+        }
     }
 }

@@ -59,6 +59,8 @@ if (app.Environment.IsDevelopment())
 	app.UseDeveloperExceptionPage();
 }
 
+app.UseMiddleware<Playground.Middleware.ExceptionMiddleware>();
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

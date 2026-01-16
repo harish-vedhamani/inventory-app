@@ -23,11 +23,19 @@ namespace Playground.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] decimal? minPrice = null,
+            [FromQuery] decimal? maxPrice = null,
+            [FromQuery] bool? lowStock = null,
+            [FromQuery] string? sortBy = "name",
+            [FromQuery] bool desc = false,
+            [FromQuery] string? q = null)
         {
-            var items = await _inventory.ListProductsAsync();
+            var (items, total) = await _inventory.QueryProductsAsync(page, pageSize, minPrice, maxPrice, lowStock, sortBy, desc, q);
             var dto = items.Select(p => new ProductResponseDto { Id = p.Id, Name = p.Name, Price = p.Price, Quantity = p.Quantity });
-            return Ok(dto);
+            return Ok(new { items = dto, totalCount = total, page, pageSize });
         }
 
         [HttpGet("search")]
